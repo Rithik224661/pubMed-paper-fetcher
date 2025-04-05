@@ -2,27 +2,25 @@
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
+[![TestPyPI](https://img.shields.io/testpypi/v/pharma-papers-rithik01)](https://test.pypi.org/project/pharma-papers-rithik01/)
 
-A Python tool to fetch PubMed research papers with pharmaceutical/biotech company affiliations and export them as CSV.
+A Python tool to fetch PubMed research papers with pharmaceutical/biotech company affiliations and export them as structured CSV.
 
 ## Features
 
 - 🔍 **Advanced PubMed Search** - Supports all [PubMed query syntax](https://pubmed.ncbi.nlm.nih.gov/advanced/)
-- 🏢 **Industry Affiliation Detection** - Identifies pharma/biotech company connections
-- 📊 **Structured CSV Output** - Ready for analysis in Excel/Pandas
-- ⚙️ **Configurable CLI** - Multiple output options and debugging
+- 🏢 **Industry Affiliation Detection** - Identifies pharma/biotech company connections using heuristic filtering
+- 📊 **Structured CSV Output** - Ready for analysis in Excel/Pandas with 6 key columns
+- ⚙️ **Configurable CLI** - Debug mode, API key support, and output customization
 
-## Code Organization
-
-The project follows a modular structure:
+## Code Structure
 pharma_papers/
 ├── cli.py # Command-line interface
 ├── pubmed.py # PubMed API client
 ├── parser.py # XML parsing logic
-├── affiliations.py # Company detection
+├── affiliations.py # Company detection heuristics
 └── output.py # CSV generation
 tests/ # Unit tests
-
 
 ## Installation
 
@@ -32,78 +30,60 @@ tests/ # Unit tests
 
 ### Setup
 ```bash
-git clone https://github.com/yourusername/pharma-papers.git
-cd pharma-papers
+# Clone repository
+git clone https://github.com/Rithik224661/pubMed-paper-fetcher.git
+cd pubMed-paper-fetcher
+
+# Install dependencies
 poetry install
+
+# Activate virtual environment
+poetry shell
 
 Usage
 Basic Command
 poetry run get-papers-list "cancer[Title]" -e your@email.com -f output.csv
-
-Options
+Command Options
 Flag	Description	Example
 -e	Required email for NCBI	-e user@domain.com
 -f	Output file path	-f results.csv
 -k	NCBI API key (optional)	-k 123abc...
 -m	Max results (default: 10000)	-m 500
--d	Debug mode	--debug
+-d	Enable debug mode	--debug
 Example Queries
-
 # Search with company filter
-poetry run get-papers-list "(cancer[Title]) AND (pfizer[AFFL] OR novartis[AFFL])" -e user@email.com -f results.csv
+poetry run get-papers-list "(cancer[Title]) AND (pfizer[AFFL])" -e user@email.com -f results.csv
 
 # Recent clinical trials
-poetry run get-papers-list "cancer[Title] AND clinical trial[PTYP] AND 2023:2025[PDAT]" -e user@email.com -f trials.csv
+poetry run get-papers-list "diabetes[Title] AND clinical trial[PTYP] AND 2023:2025[PDAT]" -e user@email.com -f trials.csvOutput Format
+CSV files contain these columns:
 
-Output Format
-CSV file containing:
+PubmedID - Unique identifier
 
-PubmedID: Unique identifier
+Title - Paper title
 
-Title: Paper title
+PublicationDate - YYYY-MM-DD format
 
-Publication Date: YYYY-MM-DD format
+NonAcademicAuthors - Industry-affiliated authors
 
-Non-academic Author(s): Industry-affiliated authors
+CompanyAffiliations - Detected companies
 
-Company Affiliation(s): Detected companies
-
-Corresponding Author Email: Contact address
+CorrespondingAuthorEmail - Contact address
 
 Dependencies
-Package	Purpose	Link
-Biopython	PubMed API access	biopython.org
-pandas	CSV export	pandas.pydata.org
-requests	HTTP requests	requests.readthedocs.io
-typing-extensions	Type hints	pypi.org/project/typing-extensions
+Core Libraries
+Package	Purpose	Version
+Biopython	PubMed API access	>=1.80
+pandas	CSV export	>=2.0
+requests	HTTP requests	>=2.31
 
-Development
-Testing
-poetry run pytest  # Run unit tests
-Code Quality
-poetry run mypy .  # Type checking
+Development Tools
+poetry run pytest   # Run unit tests
+poetry run mypy .   # Type checking
 poetry run black .  # Code formatting
 poetry run isort .  # Import sorting
 
-## Tools & Libraries Used
+Publishing
+Available on TestPyPI:
+pip install -i https://test.pypi.org/simple/ pharma-papers-rithik01
 
-The project utilizes these key components:
-
-### Core Libraries
-| Library | Purpose | Documentation |
-|---------|---------|---------------|
-| [Biopython](https://biopython.org/) | PubMed API interaction | [Bio.Entrez Docs](https://biopython.org/docs/1.75/api/Bio.Entrez.html) |
-| [pandas](https://pandas.pydata.org/) | Data processing & CSV export | [pandas User Guide](https://pandas.pydata.org/docs/user_guide/index.html) |
-| [requests](https://requests.readthedocs.io/) | HTTP requests | [Requests Docs](https://requests.readthedocs.io/en/latest/) |
-
-### Development Tools
-| Tool | Usage | Link |
-|------|-------|------|
-| [Poetry](https://python-poetry.org/) | Dependency management | [Poetry Docs](https://python-poetry.org/docs/) |
-| [pytest](https://docs.pytest.org/) | Testing framework | [pytest Guide](https://docs.pytest.org/en/7.4.x/) |
-| [mypy](https://mypy.readthedocs.io/) | Static type checking | [mypy Docs](https://mypy.readthedocs.io/en/stable/) |
-
-### Supplementary Packages
-- `typing-extensions`: For type hints compatibility
-- `python-dateutil`: Date parsing utilities
-- `loguru`: Enhanced logging (optional)
