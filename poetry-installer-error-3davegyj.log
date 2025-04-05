@@ -1,0 +1,21 @@
+Collecting poetry==2.1.2
+  Downloading poetry-2.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting build<2.0.0,>=1.2.1 (from poetry==2.1.2)
+  Downloading build-1.2.2.post1-py3-none-any.whl.metadata (6.5 kB)
+Collecting cachecontrol<0.15.0,>=0.14.0 (from cachecontrol[filecache]<0.15.0,>=0.14.0->poetry==2.1.2)
+  Downloading cachecontrol-0.14.2-py3-none-any.whl.metadata (3.1 kB)
+Collecting cleo<3.0.0,>=2.1.0 (from poetry==2.1.2)
+  Downloading cleo-2.1.0-py3-none-any.whl.metadata (12 kB)
+INFO: pip is looking at multiple versions of poetry to determine which version is compatible with other requirements. This could take a while.
+ERROR: Could not find a version that satisfies the requirement dulwich<0.23.0,>=0.22.6 (from poetry) (from versions: none)
+ERROR: No matching distribution found for dulwich<0.23.0,>=0.22.6
+
+Traceback:
+
+  File "<stdin>", line 937, in main
+  File "<stdin>", line 574, in run
+  File "<stdin>", line 596, in install
+  File "<stdin>", line 699, in install_poetry
+  File "<stdin>", line 389, in pip
+  File "<stdin>", line 386, in python
+  File "<stdin>", line 379, in run

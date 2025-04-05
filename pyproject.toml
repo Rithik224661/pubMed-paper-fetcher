@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "pharma-papers-rithik01"
+version = "2.1.2"
+description = "PubMed paper fetcher with pharma affiliation detection"
+authors = ["Rithik Gour try.rithik@gmail.com"]
+readme = "README.md"
+packages = [{include = "pharma_papers"}]
+
+[tool.poetry.dependencies]
+python = "^3.11.2"
+biopython = "^1.85"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+typing-extensions = "^4.13.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+black = "^23.12.1"
+mypy = "^1.15.0"
+isort = "^5.13.2"
+
+[tool.poetry.scripts]
+get-papers-list = "pharma_papers.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.11.2"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
