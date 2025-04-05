@@ -72,9 +72,9 @@ CorrespondingAuthorEmail - Contact address
 
 Dependencies
 Core Libraries
-Package	Purpose	Version
-Biopython	PubMed API access	>=1.80
-pandas	CSV export	>=2.0
+Package	  Purpose	      Version
+Biopython	PubMed API    access	>=1.80
+pandas	  CSV export	  >=2.0
 requests	HTTP requests	>=2.31
 
 Development Tools
